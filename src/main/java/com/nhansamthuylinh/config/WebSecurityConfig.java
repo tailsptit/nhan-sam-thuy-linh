@@ -17,8 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Autowired
@@ -27,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Sét đặt dịch vụ để tìm kiếm User trong Database.
         // Và sét đặt PasswordEncoder.
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -50,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Cấu hình cho Login Form.
         http.authorizeRequests().and().formLogin()//
-
                 //
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/admin/login")//
@@ -58,10 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/admin/login?error=true")//
                 .usernameParameter("userName")//
                 .passwordParameter("password")
-
                 // Cấu hình cho trang Logout.
                 // (Sau khi logout, chuyển tới trang home)
                 .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/");
-
     }
 }
